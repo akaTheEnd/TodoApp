@@ -1,0 +1,160 @@
+syntax = "proto3";
+
+package api;
+
+option go_package = "./";
+
+service Service {
+  rpc SignUp(SignUpRequest) returns (SignUpResponse) {}
+  rpc SignIn(SignInRequest) returns (SignInResponse) {}
+
+  rpc CreateList(CreateListRequest) returns (CreateListResponse) {}
+  rpc GetAllLists(GetAllListsRequest) returns (GetAllListsResponse) {}
+  rpc GetListById(GetListByIdRequest) returns (GetListByIdResponse) {}
+  rpc UpdateList(UpdateListRequest) returns (UpdateListResponse) {}
+  rpc DeleteList(DeleteListRequest) returns (DeleteListResponse) {}
+
+  rpc CreateItem(CreateItemRequest) returns (CreateItemResponse) {}
+  rpc GetAllItems(GetAllItemsRequest) returns (GetAllItemsResponse) {}
+  rpc GetItemById(GetItemByIdRequest) returns (GetItemByIdResponse) {}
+  rpc UpdateItem(UpdateItemRequest) returns (UpdateItemResponse) {}
+  rpc DeleteItem(DeleteItemRequest) returns (DeleteItemResponse) {}
+}
+
+message SignUpRequest {
+  string name = 1;
+  string userName = 2;
+  string password = 3;
+}
+
+message SignUpResponse {
+  int32 id = 1;
+  string errorMessage = 2;
+}
+
+message SignInRequest {
+  string userName = 2;
+  string password = 3;
+}
+
+message SignInResponse {
+  string token = 1;
+  string errorMessage = 2;
+}
+
+message CreateListRequest {
+  string token = 1;
+  string title = 2;
+  string description = 3;
+}
+
+message CreateListResponse {
+  int32 id = 1;
+  string errorMessage = 2;
+}
+
+message GetAllListsRequest {
+  string token = 1;
+}
+
+message GetAllListsResponse {
+  repeated List lists = 1;
+  string errorMessage = 2;
+}
+
+message List {
+  int32 id = 1;
+  string title = 2;
+  string description = 3;
+}
+
+message GetListByIdRequest {
+  string token = 1;
+  int32 listId = 2;
+}
+
+message GetListByIdResponse {
+  List list = 1;
+  string errorMessage = 2;
+}
+
+message UpdateListRequest {
+  string token = 1;
+  int32 listId = 2;
+  string title = 3;
+  string description = 4;
+}
+
+message UpdateListResponse {
+  string errorMessage = 1;
+}
+
+message DeleteListRequest {
+  string token = 1;
+  int32 listId = 2;
+}
+
+message DeleteListResponse {
+  string errorMessage = 1;
+}
+
+message CreateItemRequest {
+  string token = 1;
+  int32 listId = 2;
+  string title = 3;
+  string description = 4;
+  bool done = 5;
+}
+
+message CreateItemResponse {
+  int32 id = 1;
+  string errorMessage = 2;
+}
+
+message GetAllItemsRequest {
+  string token = 1;
+  int32 listId = 2;
+}
+
+message GetAllItemsResponse {
+  repeated Item items = 1;
+  string errorMessage = 2;
+}
+
+message Item {
+  int32 id = 1;
+  string title = 2;
+  string description = 3;
+  bool done = 4;
+}
+
+message GetItemByIdRequest {
+  string token = 1;
+  int32 itemId = 2;
+}
+
+message GetItemByIdResponse {
+  Item item = 1;
+  string errorMessage = 2;
+}
+
+message UpdateItemRequest {
+  string token = 1;
+  int32 itemId = 2;
+  string title = 3;
+  string description = 4;
+  bool done = 5;
+}
+
+message UpdateItemResponse {
+  string errorMessage = 1;
+}
+
+message DeleteItemRequest {
+  string token = 1;
+  int32 itemId = 2;
+}
+
+message DeleteItemResponse {
+  string errorMessage = 1;
+}
